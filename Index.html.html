@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDVAC - Église du Dieu Vivant, Ambassadeur pour Christ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --gold: #c9a227;
+            --gold-light: #d4af37;
+            --gold-dark: #a8860d;
+            --white: #ffffff;
+            --text: #e0e0e0;
+            --text-light: #b0b0b0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background-color: var(--primary);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(26, 26, 26, 0.8);
+            padding: 10px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: 1px solid transparent;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: var(--gold);
+            color: var(--primary);
+            border-color: var(--gold-light);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 55px;
+            width: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&q=80&w=1920') center/cover no-repeat;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-logo-large {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 2rem;
+            filter: drop-shadow(0 0 20px rgba(201, 162, 39, 0.4));
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
+        }
+
+        .btn-gold:hover {
+            background: transparent;
+            color: var(--gold);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.4);
+        }
+
+        /* Verset du Jour */
+        .daily-verse-box {
+            background: var(--secondary);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .verse-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .verse-icon {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .verse-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--white);
+            line-height: 1.4;
+        }
+
+        .verse-ref {
+            color: var(--gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-header .underline {
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-img {
+            width: 100%;
+            border-radius: 15px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .about-text h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        /* Missions Cards */
+        .missions-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: var(--secondary);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(201, 162, 39, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mission-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .mission-card i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-card h3 {
+            font-family: 'Cinzel', serif;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-info-item i {
+            font-size: 1.5rem;
+            color: var(--gold);
+            background: rgba(201, 162, 39, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .contact-form {
+            background: var(--secondary);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            background: #050505;
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: var(--gold);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            color: var(--white);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-grid, .missions-grid, .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+        }
+
+        @media (max-width: 768px) {
+            .lang-switcher {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('fr')">FR</button>
+        <button class="lang-btn" onclick="switchLang('ln')">LN</button>
+        <button class="lang-btn" onclick="switchLang('sw')">SW</button>
+        <button class="lang-btn" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://pfst.cf2.poecdn.net/base/image/870778c93c38a6b6ff711cd0d99063bfdd1fee1015560269f3796701c1e8be2c?w=1024&h=1024" alt="EDVAC Logo">
+                <span class="logo-text">EDVAC</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#accueil" data-fr="Accueil" data-ln="Ebandeli" data-sw="Nyumbani" data-en="Home">Accueil</a></li>
+                <li><a href="#apropos" data-fr="À Propos" data-ln="Makambo" data-sw="Kuhusu" data-en="About">À Propos</a></li>
+                <li><a href="#missions" data-fr="Missions" data-ln="Misala" data-sw="Misheni" data-en="missions">Missions</a></li>
+                <li><a href="#contact" data-fr="Contact" data-ln="Kosolola" data-sw="Wasiliana" data-en="contact">Contact</a></li>
+            </ul>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <img src="https://pfst.cf2.poecdn.net/base/image/870778c93c38a6b6ff711cd0d99063bfdd1fee1015560269f3796701c1e8be2c?w=1024&h=1024" alt="Logo" class="hero-logo-large">
+            <h1 class="logo-text">EDVAC</h1>
+            <h2 data-fr="Église du Dieu Vivant, Ambassadeur pour Christ" 
+                data-ln="Lingomba ya Nzambe ya Bomoi, Ambassadeur mpo na Klisto" 
+                data-sw="Kanisa la Mungu Aliye Hai, Balozi wa Kristo"
+                data-en="Church of the living god, ambassador for Christ">
+                Église du Dieu Vivant, Ambassadeur pour Christ
+            </h2>
+            <p data-fr="Ensemblée Hébron – Cité de Refuge. Un lieu de paix, d'espérance et de transformation spirituelle."
+               data-ln="Lisanga Hébron – Mboka ya Bobateli. Esika ya kimia, elikya mpe bobongwani ya molimo."
+               data-sw="Kundi la Hebroni – Mji wa Kimbilio. Mahali pa amani, matumaini na mabadiliko ya kiroho."
+               data-en="Hebron assembly-city of refuge. A place of peace, hope and spiritual transformation.">
+                Ensemblée Hébron – Cité de Refuge. Un lieu de paix, d'espérance et de transformation spirituelle.
+            </p>
+            <a href="#apropos" class="btn-gold" data-fr="Nous découvrir" data-ln="Koyeba biso" data-sw="Tugundue" data-en="Discover us">Nous découvrir</a>
+        </div>
+    </section>
+
+    <!-- Verset du Jour -->
+    <div class="daily-verse-box">
+        <div class="verse-container">
+            <div class="verse-icon"><i class="fas fa-bible"></i></div>
+            <p class="verse-text" id="dailyVerse">"Nous faisons donc les fonctions d'ambassadeurs pour Christ, comme si Dieu exhortait par nous."</p>
+            <p class="verse-ref" id="dailyRef">2 Corinthiens 5:20</p>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="apropos">
+        <div class="section-header">
+            <h2 data-fr="À Propos de Nous" data-ln="Makambo etali Biso" data-sw="Kuhusu Sisi" data-en="About us">À Propos de Nous</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="about-grid">
+            <img src="https://images.unsplash.com/photo-1510590337019-5ef8d3d32116?auto=format&fit=crop&q=80&w=800" alt="Church" class="about-img">
+            <div class="about-text">
+                <h3 data-fr="Notre Identité" data-ln="Ezaleli na biso" data-sw="Utambulisho Wetu" data-en="Our Identity">Notre Identité</h3>
+                <p data-fr="L'EDVAC est une communauté vibrante dédiée à l'enseignement de la saine doctrine et à la manifestation de l'amour de Dieu à Kolwezi et au-delà."
+                   data-ln="EDVAC ezali lisanga ya makasi oyo emipesi na koteya liloba ya solo mpe komonisa bolingo ya Nzambe na Kolwezi mpe na bisika nyonso."
+                   data-sw="EDVAC ni jumuiya iliyochangamka inayojitolea kufundisha mafundisho sahihi na kudhihirisha upendo wa Mungu huko Kolwezi na kwingineko."
+                   data-en=" EDVAC is a vibrant community dedicated to teaching sound doctrine and manifesting the love of god in kolwezi and bayond">
+                    L'EDVAC est une communauté vibrante dédiée à l'enseignement de la saine doctrine et à la manifestation de l'amour de Dieu à Kolwezi et au-delà.
+                </p>
+                <p data-fr="Sous la vision de l'Ensemblée Hébron, nous servons de refuge pour les âmes assoiffées de vérité et de restauration."
+                   data-ln="Na se ya emoniseleli ya Lisanga Hébron, tozali esika ya kobatama mpo na milimo oyo ezali na mposa ya solo mpe kobongisama."
+                   data-sw="Chini ya maono ya Kundi la Hebroni, tunatumika kama kimbilio la roho zenye kiu ya ukweli na urejesho."
+                   data-en="under the vision of the hebron ensemble, we serve as a refuge for souls thirsting for truth and restoration">
+                    Sous la vision de l'Ensemblée Hébron, nous servons de refuge pour les âmes assoiffées de vérité et de restauration.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Missions Section -->
+    <section id="missions" style="background: var(--secondary);">
+        <div class="section-header">
+            <h2 data-fr="Nos Missions" data-ln="Misala na Biso" data-sw="Misheni Yetu" data-en="Our missions">Nos Missions</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="missions-grid">
+            <div class="mission-card">
+                <i class="fas fa-dove"></i>
+                <h3 data-fr="Évangélisation" data-ln="Kosakola" data-sw="Uinjilisti" data-en="evangelism">Évangélisation</h3>
+                <p data-fr="Proclamer la bonne nouvelle du salut à toute créature. (Mattheu 28: 19 à 20)" data-ln="Kosakola sango malamu ya lobiko na bikelamu nyonso. (Matayo 28: 19 à 20)" data-sw="Kutangaza habari njema ya wokovu kwa kila kiumbe. (Matayo 28: 19 à 20)" data-en="proclaim the good new of salvation to all creatures (Matthew 28: 19 à 20)">Proclamer la bonne nouvelle du salut à toute créature. (Mattheu 28: 19 à 20)</p>
+            </div>
+            <div class="mission-card">
+                <i class="fas fa-users"></i>
+                <h3 data-fr="Discipolat" data-ln="Boyekoli" data-sw="Uanafunzi" data-en="discipleship">Discipolat</h3>
+                <p data-fr="Former des ambassadeurs matures et affermis dans la foi. (Mattheu 28 : 20)" data-ln="Kobongisa baambassadeur oyo bakoli mpe bapikami na kondima. (Matayo 28: 20)" data-sw="Kuandaa mabalozi waliokomaa na kuimarika katika imani. (Matayo 28: 20)" data-en="train mature ambassadors strengthened in the faith (Matthew 28 : 20)">Former des ambassadeurs matures et affermis dans la foi. (Mattheu 28 : 20).</p>
+            </div>
+            <div class="mission-card">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h3 data-fr="Compassion" data-ln="Mawa" data-sw="Huruma" data-en="Compassion">Compassion</h3>
+                <p data-fr="l'amour du prochain ( Galate 6: 9 à 10)." data-ln="bolingo ya baninga ( Galato 6: 9 à 10) " data-sw="mapedo ya ki nduku. ( wagalatia 6: 9 à 10)" data-en="love of neghbor (galatian 6 : 9 à 10)">l'amour du prochain ( Galate 6: 9 à 10).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <h2 data-fr="Nous Joindre" data-ln="Kosolola na biso" data-sw="Wasiliana Nasi" data-en="contact us">Nous Joindre</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-info-item">
+                    <i class="fas fa-location-dot"></i>
+                    <div>
+                        <h4 data-fr="Adresse" data-ln="Adrese" data-sw="Anwani" data-en="Adress">Adresse</h4>
+                        <p>26, Lulua, Latin, Manika, Kolwezi, RD Congo</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4 data-fr="Téléphone" data-ln="Telefone" data-sw="Simu" data-en="phone">Téléphone</h4>
+                        <p>+243 974 744 555</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>eglisedudieuvivantambassadeurp@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label data-fr="Nom" data-ln="Nkombo" data-sw="Jina" data-en="name">Nom</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-gold" style="width: 100%; border: none; cursor: pointer;" data-fr="Envoyer" data-ln="Tinda" data-sw="Tuma" data-en="send">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <img src="https://pfst.cf2.poecdn.net/base/image/870778c93c38a6b6ff711cd0d99063bfdd1fee1015560269f3796701c1e8be2c?w=1024&h=1024" alt="Logo" style="width: 80px; border-radius: 50%; margin-bottom: 1rem;">
+        <h2 class="logo-text">EDVAC</h2>
+        <p data-fr="Ensemblée Hébron – Cité de Refuge" data-ln="Lisanga Hébron – Mboka ya Bobateli" data-sw="Kundi la Hebroni – Mji wa Kimbilio" data-en="together hebron city of refuge">Ensemblée Hébron – Cité de Refuge</p>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=61586802923068" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/eglise_du_dieu_vivant1414?igsh=YTU1c2pvanFsZzZp" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@eglisedudieuvivantambassadeurp?si=hJ1pEFIYfl36V6hW" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://whatsapp.com/channel/0029Vb7J6ZUChq6NkqhLTO18" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+
+        <p class="copyright">© 2025 EDVAC. <span data-fr="Tous droits réservés." data-ln="Makoki nyonso ebatelami." data-sw="Haki zote zimehifadhiwa." data-en="all rights reserved">Tous droits réservés.</span></p>
+    </footer>
+
+    <script>
+        // Versets bibliques rotatifs
+        const verses = {
+            fr: [
+                {t: "Nous faisons donc les fonctions d'ambassadeurs pour Christ.", r: "2 Corinthiens 5:20"},
+                {t: "L'Éternel est mon berger, je ne manquerai de rien.", r: "Psaume 23:1"},
+                {t: "Je puis tout par celui qui me fortifie.", r: "Philippiens 4:13"}
+            ],
+            ln: [
+                {t: "Bongo tozali kosala mosala ya baambassadeur mpo na Klisto.", r: "2 Bakorinti 5:20"},
+                {t: "Yawe azali mobateli na ngai, nakozanga eloko te.", r: "Nzembo 23:1"},
+                {t: "Nakoki kosala makambo nyonso na nzela ya Klisto.", r: "Bafilipi 4:13"}
+            ],
+            sw: [
+                {t: "Basi sisi tu mabalozi kwa ajili ya Kristo.", r: "2 Wakorintho 5:20"},
+                {t: "Bwana ndiye mchungaji wangu, sitapungukiwa na kitu.", r: "Zaburi 23:1"},
+                {t: "Nayaweza mambo yote katika yeye anayenitia nguvu.", r: "Wafilipi 4:13"}
+            ],
+            en: [
+                 {t: "Now then, we are ambassadors for Christ.", r: "2 Corinthians 5:20"},
+                 {t: "The Lord is my shepherd; I shall not want.", r: "Psalm 23:1"},
+                 {t: "I can do all things through Christ who strengthens me.", r: "Philippians 4:13"}
+            ]
+                     };
+
+        function switchLang(lang) {
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.toLowerCase().includes(lang)) btn.classList.add('active');
+            });
+
+            // Update translations
+            document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+                el.innerText = el.getAttribute('data-' + lang);
+            });
+
+            // Update Verse
+            const v = verses[lang][0];
+            document.getElementById('dailyVerse').innerText = `"${v.t}"`;
+            document.getElementById('dailyRef').innerText = v.r;
+        }
+
+        // Mobile Menu
+        const menuBtn = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuBtn.onclick = () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.width = '100%';
+            navLinks.style.background = 'var(--primary)';
+            navLinks.style.padding = '2rem';
+        };
+    </script>
+</body>
+</html>
